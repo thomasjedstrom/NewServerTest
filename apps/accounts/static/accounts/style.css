@@ -1,0 +1,11 @@
+*{
+	font-family: sans-serif;
+}
+
+.error{
+	color: red;
+	border-radius: 5px;
+	border: 1px solid red;
+	background: pink;
+	max-width: 500px;
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h1>FUCK YEAH!  YOU MADE IT BRO!</h1>
+
+	<ul>
+	{% if users %}
+		{% for user in users %}
+			<li>{{ user.username }}</li>	
+		{% endfor %}
+	{% endif %}
+	</ul>
+
+	<a href="{% url 'accounts:logout' %}">Log Out</a>
+
+		{% if messages %}
+			<ul class="messages">
+			    {% for message in messages %}
+			    	{% if 'index_error' in message.tags %}
+					    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+			    	{% endif %}
+			    {% endfor %}
+			</ul>
+		{% endif %}
+
+		<h3>Create Manufacturer</h3>
+
+		
+		<form action="{% url 'accounts:process' %}" method="POST">
+			{% csrf_token %}
+			<input type="hidden" name="man">
+			{% include 'accounts/form_template.html' with form=form1 %}
+			<input type="submit" value="register">
+		</form>
+
+
+		<h3>Create a Product</h3>
+
+		
+		<form action="{% url 'accounts:process' %}" method="POST">
+			{% csrf_token %}
+			<input type="hidden" name="prod">
+			{% include 'accounts/form_template.html' with form=form2 %}
+			<input type="submit" value="register">
+		</form>
+
+<h2>Manufacturers</h2>
+	<ul>
+	{% if manufacturers %}
+		{% for manufacturer in manufacturers %}
+			<li>{{ manufacturer }}</li>	
+		{% endfor %}
+	{% endif %}
+	</ul>
+
+<h2>Products</h2>
+
+	<table>
+		<tr>
+			<th>Manufacturer</th>
+			<th>Product</th>
+			<th>Combiner</th>
+			<th>Combined Product</th>
+		</tr>
+	{% for prod, join in products %}
+		<tr>
+			<td>{{ prod.manufacturer }}</td>
+			<td>{{ prod }}</td>
+			<td>{{ prod.combiner }}</td>
+			<td>{{ join }}</td>
+		</tr>
+	{% endfor %}
+	</table>
+
+
+
+
+
+
+</body>
+</html>
